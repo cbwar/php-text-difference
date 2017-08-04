@@ -76,16 +76,30 @@ class SideBySide extends ArrayRenderer
 				$html .= '<tbody class="Change'.ucfirst($change['tag']).'">';
 				// Equal changes should be shown on both sides of the diff
 				if($change['tag'] == 'equal') {
-					foreach($change['base']['lines'] as $no => $line) {
-						$fromLine = $change['base']['offset'] + $no + 1;
-						$toLine = $change['changed']['offset'] + $no + 1;
-						$html .= '<tr>';
-						$html .= '<th>'.$fromLine.'</th>';
-						$html .= '<td class="Left"><span>'.$line.'</span>&nbsp;</span></td>';
-						$html .= '<th>'.$toLine.'</th>';
-						$html .= '<td class="Right"><span>'.$line.'</span>&nbsp;</span></td>';
-						$html .= '</tr>';
-					}
+
+				    if ($this->options['showEquals']) {
+
+                        foreach ($change['base']['lines'] as $no => $line) {
+                            $fromLine = $change['base']['offset'] + $no + 1;
+                            $toLine = $change['changed']['offset'] + $no + 1;
+                            $html .= '<tr>';
+                            $html .= '<th>' . $fromLine . '</th>';
+                            $html .= '<td class="Left"><span>' . $line . '</span>&nbsp;</span></td>';
+                            $html .= '<th>' . $toLine . '</th>';
+                            $html .= '<td class="Right"><span>' . $line . '</span>&nbsp;</span></td>';
+                            $html .= '</tr>';
+                        }
+
+                    } else {
+
+                        $html .= '<tr>';
+                        $html .= '<th></th>';
+                        $html .= '<td class="Left"><span>[...]</span>&nbsp;</span></td>';
+                        $html .= '<th></th>';
+                        $html .= '<td class="Right"><span>[...]</span>&nbsp;</span></td>';
+                        $html .= '</tr>';
+
+                    }
 				}
 				// Added lines only on the right side
 				else if($change['tag'] == 'insert') {
