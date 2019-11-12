@@ -9,17 +9,19 @@
   "license": "BSD-3-Clause",
   "authors": [
     {
-      "name": "Adaptive Media",
-      "homepage": "http://www.adaptivemedia.se"
-    },
-    {
-      "name": "Raphael Lisch",
-      "email": "raphael.lisch@gmail.com"
+      "name": "Chris Boulton",
+      "homepage": "http://github.com/chrisboulton"
     }
   ],
   "autoload": {
     "psr-4": {
       "Adaptive\\": "src"
+    }
+  },
+
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
     }
   }
 }
