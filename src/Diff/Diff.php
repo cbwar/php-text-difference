@@ -173,7 +173,7 @@ class Diff
 		}
 
 		$sequenceMatcher = new SequenceMatcher($this->a, $this->b, null, $this->options);
-		$this->groupedCodes = $sequenceMatcher->getGroupedOpcodes();
+		$this->groupedCodes = $sequenceMatcher->getGroupedOpcodes($this->options['context']);
 		return $this->groupedCodes;
 	}
 }
