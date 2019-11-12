@@ -41,8 +41,8 @@ $options = array(
 $a = explode("\n", file_get_contents($some_file_path));
 $b = explode("\n", file_get_contents($some_other_file_path);
 
-$diff = new Adaptive\Diff\Diff($a, $b, $options);
-$renderer = new Adaptive\Diff\Renderer\Html\SideBySide;
+$diff = new Diff\Diff($a, $b, $options);
+$renderer = new Diff\Renderer\Html\SideBySide;
 echo $diff->Render($renderer);
 ?>
 ```

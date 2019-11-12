@@ -6,11 +6,11 @@ if ( ! require_once __DIR__ . '/../vendor/autoload.php') {
     exit("You must set up the project dependencies, run the following commands:\n> wget http://getcomposer.org/composer.phar\n> php composer.phar install\n");
 }
 
-use Adaptive\Diff\Diff;
-use Adaptive\Diff\Renderer\Html\Inline;
-use Adaptive\Diff\Renderer\Html\SideBySide;
-use Adaptive\Diff\Renderer\Text\Context;
-use Adaptive\Diff\Renderer\Text\Unified;
+use Diff\Diff;
+use Diff\Renderer\Html\Inline;
+use Diff\Renderer\Html\SideBySide;
+use Diff\Renderer\Text\Context;
+use Diff\Renderer\Text\Unified;
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

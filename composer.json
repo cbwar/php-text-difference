@@ -15,10 +15,9 @@
   ],
   "autoload": {
     "psr-4": {
-      "Adaptive\\": "src"
+      "Diff\\": "src/"
     }
   },
-
   "extra": {
     "branch-alias": {
       "dev-master": "1.0.x-dev"

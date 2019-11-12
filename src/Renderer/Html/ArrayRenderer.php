@@ -1,4 +1,4 @@
-<?php namespace Adaptive\Diff\Renderer\Html;
+<?php
 /**
  * Base renderer for rendering HTML based diffs for PHP DiffLib.
  *
@@ -40,7 +40,9 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
-use Adaptive\Diff\Renderer\AbstractRenderer;
+namespace Diff\Renderer\Html;
+
+use Diff\Renderer\AbstractRenderer;
 
 class ArrayRenderer extends AbstractRenderer
 {

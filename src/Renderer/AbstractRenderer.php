@@ -1,4 +1,4 @@
-<?php namespace Adaptive\Diff\Renderer;
+<?php
 /**
  * Abstract class for diff renderers in PHP DiffLib.
  *
@@ -39,6 +39,8 @@
  * @version 1.1
  * @link http://github.com/chrisboulton/php-diff
  */
+
+namespace Diff\Renderer;
 
 abstract class AbstractRenderer
 {

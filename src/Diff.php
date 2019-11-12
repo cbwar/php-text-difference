@@ -1,4 +1,4 @@
-<?php namespace Adaptive\Diff;
+<?php
 /**
  * Diff
  *
@@ -43,8 +43,10 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
-use Adaptive\Diff\Renderer\AbstractRenderer;
-use Adaptive\Diff\SequenceMatcher;
+namespace Diff;
+
+use Diff\Renderer\AbstractRenderer;
+use Diff\SequenceMatcher;
 
 class Diff
 {

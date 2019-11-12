@@ -40,6 +40,8 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
+namespace Diff\Renderer\Html;
+
 class SideBySide extends ArrayRenderer
 {
 	/**
