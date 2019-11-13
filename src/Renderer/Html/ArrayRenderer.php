@@ -78,7 +78,7 @@ class ArrayRenderer extends AbstractRenderer
 			foreach($group as $code) {
 				list($tag, $i1, $i2, $j1, $j2) = $code;
 
-				if($tag == 'replace' && $i2 - $i1 == $j2 - $j1) {
+				if($tag === 'replace' && $i2 - $i1 == $j2 - $j1) {
 					for($i = 0; $i < ($i2 - $i1); ++$i) {
 						$fromLine = $a[$i1 + $i];
 						$toLine = $b[$j1 + $i];
@@ -120,21 +120,21 @@ class ArrayRenderer extends AbstractRenderer
 
 				$lastTag = $tag;
 
-				if($tag == 'equal') {
+				if($tag === 'equal') {
 					$lines = array_slice($a, $i1, ($i2 - $i1));
 					$blocks[$lastBlock]['base']['lines'] += $this->formatLines($lines);
 					$lines = array_slice($b, $j1, ($j2 - $j1));
 					$blocks[$lastBlock]['changed']['lines'] +=  $this->formatLines($lines);
 				}
 				else {
-					if($tag == 'replace' || $tag == 'delete') {
+					if($tag === 'replace' || $tag === 'delete') {
 						$lines = array_slice($a, $i1, ($i2 - $i1));
 						$lines = $this->formatLines($lines);
 						$lines = str_replace(array("\0", "\1"), array('<del>', '</del>'), $lines);
 						$blocks[$lastBlock]['base']['lines'] += $lines;
 					}
 
-					if($tag == 'replace' || $tag == 'insert') {
+					if($tag === 'replace' || $tag === 'insert') {
 						$lines = array_slice($b, $j1, ($j2 - $j1));
 						$lines =  $this->formatLines($lines);
 						$lines = str_replace(array("\0", "\1"), array('<ins>', '</ins>'), $lines);
@@ -159,12 +159,12 @@ class ArrayRenderer extends AbstractRenderer
 	{
 		$start = 0;
 		$limit = min(mb_strlen($fromLine), mb_strlen($toLine));
-		while($start < $limit && mb_substr($fromLine, $start, 1) == mb_substr($toLine, $start, 1)) {
+		while($start < $limit && mb_substr($fromLine, $start, 1) === mb_substr($toLine, $start, 1)) {
 			++$start;
 		}
 		$end = -1;
-		$limit = $limit - $start;
-		while(-$end <= $limit && mb_substr($fromLine, $end, 1) == mb_substr($toLine, $end, 1)) {
+		$limit -= $start;
+		while(-$end <= $limit && mb_substr($fromLine, $end, 1) === mb_substr($toLine, $end, 1)) {
 			--$end;
 		}
 		return array(
@@ -188,7 +188,7 @@ class ArrayRenderer extends AbstractRenderer
 		}
 		$lines = array_map(array($this, 'HtmlSafe'), $lines);
 		foreach($lines as &$line) {
-			$line = preg_replace_callback('# ( +)|^ #', __CLASS__."::fixSpaces", $line);
+			$line = preg_replace_callback('# ( +)|^ #', __CLASS__. '::fixSpaces', $line);
 		}
 		return $lines;
 	}

@@ -47,17 +47,17 @@ class SequenceMatcher
     /**
      * @var string|array Either a string or an array containing a callback function to determine if a line is "junk" or not.
      */
-    private $junkCallback = null;
+    private $junkCallback;
 
     /**
      * @var array The first sequence to compare against.
      */
-    private $a = null;
+    private $a;
 
     /**
      * @var array The second sequence.
      */
-    private $b = null;
+    private $b;
 
     /**
      * @var array Array of characters that are considered junk from the second sequence. Characters are the array key.
@@ -91,10 +91,8 @@ class SequenceMatcher
      * @param string|array $junkCallback Either an array or string that references a callback function (if there is one) to determine 'junk' characters.
      * @param array $options
      */
-    public function __construct($a, $b, $junkCallback = null, $options)
+    public function __construct($a, $b, $junkCallback = null, $options = [])
     {
-        $this->a = null;
-        $this->b = null;
         $this->junkCallback = $junkCallback;
         $this->setOptions($options);
         $this->setSequences($a, $b);
@@ -174,8 +172,8 @@ class SequenceMatcher
         $this->b2j = array();
         $popularDict = array();
 
-        for ($i = 0; $i < $length; ++$i) {
-            $char = $this->b[$i];
+        foreach ($this->b as $i => $iValue) {
+            $char = $iValue;
             if (isset($this->b2j[$char])) {
                 if ($length >= 200 && count($this->b2j[$char]) * 100 > $length) {
                     $popularDict[$char] = 1;
@@ -265,7 +263,9 @@ class SequenceMatcher
             foreach ($jDict as $j) {
                 if ($j < $blo) {
                     continue;
-                } else if ($j >= $bhi) {
+                }
+
+                if ($j >= $bhi) {
                     break;
                 }
 
@@ -335,11 +335,7 @@ class SequenceMatcher
             $lineB = strtolower($lineB);
         }
 
-        if ($lineA != $lineB) {
-            return true;
-        }
-
-        return false;
+        return $lineA !== $lineB;
     }
 
     /**
@@ -403,8 +399,7 @@ class SequenceMatcher
         $j1 = 0;
         $k1 = 0;
         $nonAdjacent = array();
-        foreach ($matchingBlocks as $block) {
-            list($i2, $j2, $k2) = $block;
+        foreach ($matchingBlocks as list($i2, $j2, $k2)) {
             if ($i1 + $k1 == $i2 && $j1 + $k1 == $j2) {
                 $k1 += $k2;
             } else {
@@ -473,8 +468,7 @@ class SequenceMatcher
         $this->opCodes = array();
 
         $blocks = $this->getMatchingBlocks();
-        foreach ($blocks as $block) {
-            list($ai, $bj, $size) = $block;
+        foreach ($blocks as list($ai, $bj, $size)) {
             $tag = '';
             if ($i < $ai && $j < $bj) {
                 $tag = 'replace';
@@ -539,7 +533,7 @@ class SequenceMatcher
             );
         }
 
-        if ($opCodes[0][0] == 'equal') {
+        if ($opCodes[0][0] === 'equal') {
             $opCodes[0] = array(
                 $opCodes[0][0],
                 max($opCodes[0][1], $opCodes[0][2] - $context),
@@ -550,7 +544,7 @@ class SequenceMatcher
         }
 
         $lastItem = count($opCodes) - 1;
-        if ($opCodes[$lastItem][0] == 'equal') {
+        if ($opCodes[$lastItem][0] === 'equal') {
             list($tag, $i1, $i2, $j1, $j2) = $opCodes[$lastItem];
             $opCodes[$lastItem] = array(
                 $tag,
@@ -566,7 +560,7 @@ class SequenceMatcher
         $group = array();
         foreach ($opCodes as $code) {
             list($tag, $i1, $i2, $j1, $j2) = $code;
-            if ($tag == 'equal' && $i2 - $i1 > $maxRange) {
+            if ($tag === 'equal' && $i2 - $i1 > $maxRange) {
                 $group[] = array(
                     $tag,
                     $i1,
@@ -588,7 +582,7 @@ class SequenceMatcher
             );
         }
 
-        if (!empty($group) && !(count($group) == 1 && $group[0][0] == 'equal')) {
+        if (!empty($group) && !(count($group) === 1 && $group[0][0] === 'equal')) {
             $groups[] = $group;
         }
 
@@ -633,35 +627,33 @@ class SequenceMatcher
      *
      * @return float The calculated ratio.
      */
-    private function quickRatio()
-    {
-        if ($this->fullBCount === null) {
-            $this->fullBCount = array();
-            $bLength = count($this->b);
-            for ($i = 0; $i < $bLength; ++$i) {
-                $char = $this->b[$i];
-                $this->fullBCount[$char] = $this->arrayGetDefault($this->fullBCount, $char, 0) + 1;
-            }
-        }
-
-        $avail = array();
-        $matches = 0;
-        $aLength = count($this->a);
-        for ($i = 0; $i < $aLength; ++$i) {
-            $char = $this->a[$i];
-            if (isset($avail[$char])) {
-                $numb = $avail[$char];
-            } else {
-                $numb = $this->arrayGetDefault($this->fullBCount, $char, 0);
-            }
-            $avail[$char] = $numb - 1;
-            if ($numb > 0) {
-                ++$matches;
-            }
-        }
-
-        $this->calculateRatio($matches, count($this->a) + count($this->b));
-    }
+//    private function quickRatio()
+//    {
+//        if ($this->fullBCount === null) {
+//            $this->fullBCount = array();
+//            foreach ($this->b as $iValue) {
+//                $char = $iValue;
+//                $this->fullBCount[$char] = $this->arrayGetDefault($this->fullBCount, $char, 0) + 1;
+//            }
+//        }
+//
+//        $avail = array();
+//        $matches = 0;
+//        foreach ($this->a as $iValue) {
+//            $char = $iValue;
+//            if (isset($avail[$char])) {
+//                $numb = $avail[$char];
+//            } else {
+//                $numb = $this->arrayGetDefault($this->fullBCount, $char, 0);
+//            }
+//            $avail[$char] = $numb - 1;
+//            if ($numb > 0) {
+//                ++$matches;
+//            }
+//        }
+//
+//        $this->calculateRatio($matches, count($this->a) + count($this->b));
+//    }
 
     /**
      * Return an upper bound ratio really quickly for the similarity of the strings.
@@ -669,13 +661,13 @@ class SequenceMatcher
      *
      * @return float The calculated ratio.
      */
-    private function realquickRatio()
-    {
-        $aLength = count($this->a);
-        $bLength = count($this->b);
-
-        return $this->calculateRatio(min($aLength, $bLength), $aLength + $bLength);
-    }
+//    private function realquickRatio()
+//    {
+//        $aLength = count($this->a);
+//        $bLength = count($this->b);
+//
+//        return $this->calculateRatio(min($aLength, $bLength), $aLength + $bLength);
+//    }
 
     /**
      * Helper function for calculating the ratio to measure similarity for the strings.
@@ -689,9 +681,9 @@ class SequenceMatcher
     {
         if ($length) {
             return 2 * ($matches / $length);
-        } else {
-            return 1;
         }
+
+        return 1;
     }
 
     /**
@@ -708,9 +700,9 @@ class SequenceMatcher
     {
         if (isset($array[$key])) {
             return $array[$key];
-        } else {
-            return $default;
         }
+
+        return $default;
     }
 
     /**
@@ -726,17 +718,21 @@ class SequenceMatcher
         for ($i = 0; $i < $max; ++$i) {
             if ($a[$i] < $b[$i]) {
                 return -1;
-            } else if ($a[$i] > $b[$i]) {
+            }
+
+            if ($a[$i] > $b[$i]) {
                 return 1;
             }
         }
 
-        if (count($a) == count($b)) {
+        if (count($a) === count($b)) {
             return 0;
-        } else if (count($a) < count($b)) {
-            return -1;
-        } else {
-            return 1;
         }
+
+        if (count($a) < count($b)) {
+            return -1;
+        }
+
+        return 1;
     }
 }

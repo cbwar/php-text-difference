@@ -6,15 +6,15 @@ if ( !require __DIR__ . '/../vendor/autoload.php') {
     exit("You must set up the project dependencies, run the following commands:\n> wget http://getcomposer.org/composer.phar\n> php composer.phar install\n");
 }
 
-use Diff\Diff;
-use Diff\Renderer\Html\Inline;
-use Diff\Renderer\Html\SideBySide;
-use Diff\Renderer\Text\Context;
-use Diff\Renderer\Text\Unified;
+use Cbwar\Diff\Diff;
+use Cbwar\Diff\Renderer\Html\Inline;
+use Cbwar\Diff\Renderer\Html\SideBySide;
+use Cbwar\Diff\Renderer\Text\Context;
+use Cbwar\Diff\Renderer\Text\Unified;
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html lang="en">
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 		<title>PHP LibDiff - Examples</title>
@@ -26,8 +26,8 @@ use Diff\Renderer\Text\Unified;
         <?php
 
         // Include two sample files for comparison
-        $a = explode("\n", file_get_contents(dirname(__FILE__).'/a.txt'));
-        $b = explode("\n", file_get_contents(dirname(__FILE__).'/b.txt'));
+        $a = explode("\n", file_get_contents(__DIR__ .'/a.txt'));
+        $b = explode("\n", file_get_contents(__DIR__ .'/b.txt'));
 
         // Options for generating the diff
         $options = array(
@@ -36,14 +36,14 @@ use Diff\Renderer\Text\Unified;
         );
 
         // Initialize the diff class
-        $diff = new \Cbwar\Diff\Diff($a, $b, $options);
+        $diff = new Diff($a, $b, $options);
 
         ?>
         <h2>Side by Side Diff</h2>
         <?php
 
         // Generate a side by side diff
-        $renderer = new \Cbwar\Diff\Renderer\Html\SideBySide();
+        $renderer = new SideBySide();
         echo $diff->Render($renderer);
 
         ?>
@@ -51,7 +51,7 @@ use Diff\Renderer\Text\Unified;
         <?php
 
         // Generate an inline diff
-        $renderer = new \Cbwar\Diff\Renderer\Html\Inline();
+        $renderer = new Inline();
         echo $diff->render($renderer);
 
         ?>
@@ -59,7 +59,7 @@ use Diff\Renderer\Text\Unified;
 		<pre><?php
 
             // Generate a unified diff
-            $renderer = new \Cbwar\Diff\Renderer\Text\Unified();
+            $renderer = new Unified();
             echo htmlspecialchars($diff->render($renderer));
 
             ?>
@@ -68,7 +68,7 @@ use Diff\Renderer\Text\Unified;
 		<pre><?php
 
             // Generate a context diff
-            $renderer = new \Cbwar\Diff\Renderer\Text\Context();
+            $renderer = new Context();
             echo htmlspecialchars($diff->render($renderer));
             ?>
 		</pre>

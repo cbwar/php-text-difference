@@ -46,24 +46,23 @@
 namespace Cbwar\Diff;
 
 use Cbwar\Diff\Renderer\AbstractRenderer;
-use Cbwar\Diff\SequenceMatcher;
 
 class Diff
 {
 	/**
 	 * @var array The "old" sequence to use as the basis for the comparison.
 	 */
-	private $a = null;
+	private $a;
 
 	/**
 	 * @var array The "new" sequence to generate the changes for.
 	 */
-	private $b = null;
+	private $b;
 
 	/**
 	 * @var array Array containing the generated opcodes for the differences between the two items.
 	 */
-	private $groupedCodes = null;
+	private $groupedCodes;
 
 	/**
 	 * @var array Associative array of the default options available for the diff class and their default value.
@@ -78,7 +77,7 @@ class Diff
 	/**
 	 * @var array Array of the options that have been applied for generating the diff.
 	 */
-	private $options = array();
+	private $options;
 
 	/**
 	 * The constructor.
@@ -98,7 +97,7 @@ class Diff
 	/**
 	 * Render a diff using the supplied rendering class and return it.
 	 *
-	 * @param Diff_Renderer_Abstract $renderer An instance of the rendering object to use for generating the diff.
+	 * @param AbstractRenderer $renderer An instance of the rendering object to use for generating the diff.
 	 * @return mixed The generated diff. Exact return value depends on the rendered.
 	 */
 	public function render(AbstractRenderer $renderer)
@@ -170,7 +169,7 @@ class Diff
 	 */
 	public function getGroupedOpcodes()
 	{
-		if(!is_null($this->groupedCodes)) {
+		if($this->groupedCodes !== null) {
 			return $this->groupedCodes;
 		}
 

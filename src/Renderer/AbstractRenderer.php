@@ -86,7 +86,7 @@ abstract class AbstractRenderer
      * @param string $optName
      * @return mixed|null
      */
-    protected function getOption(string $optName)
+    protected function getOption($optName)
     {
         if (!array_key_exists($optName, $this->options)) {
             // Option not found

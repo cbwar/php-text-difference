@@ -80,29 +80,28 @@ class Context extends AbstractRenderer
             $j2 = $group[$lastItem][4];
 
             if ($i2 - $i1 >= 2) {
-                $diff .= '*** ' . ($group[0][1] + 1) . ',' . $i2 . " ****" . $eol;
+                $diff .= '*** ' . ($group[0][1] + 1) . ',' . $i2 . ' ****' . $eol;
             } else {
                 $diff .= '*** ' . $i2 . " ****\n";
             }
 
             if ($j2 - $j1 >= 2) {
-                $separator = '--- ' . ($j1 + 1) . ',' . $j2 . " ----" . $eol;
+                $separator = '--- ' . ($j1 + 1) . ',' . $j2 . ' ----' . $eol;
             } else {
-                $separator = '--- ' . $j2 . " ----" . $eol;
+                $separator = '--- ' . $j2 . ' ----' . $eol;
             }
 
             $hasVisible = false;
             foreach ($group as $code) {
-                if ($code[0] == 'replace' || $code[0] == 'delete') {
+                if ($code[0] === 'replace' || $code[0] === 'delete') {
                     $hasVisible = true;
                     break;
                 }
             }
 
             if ($hasVisible) {
-                foreach ($group as $code) {
-                    list($tag, $i1, $i2, $j1, $j2) = $code;
-                    if ($tag == 'insert') {
+                foreach ($group as list($tag, $i1, $i2)) {
+                    if ($tag === 'insert') {
                         continue;
                     }
                     $diff .= $this->tagMap[$tag] . ' ' . implode($eol . $this->tagMap[$tag] . ' ', $this->diff->GetA($i1, $i2)) . $eol;
@@ -111,7 +110,7 @@ class Context extends AbstractRenderer
 
             $hasVisible = false;
             foreach ($group as $code) {
-                if ($code[0] == 'replace' || $code[0] == 'insert') {
+                if ($code[0] === 'replace' || $code[0] === 'insert') {
                     $hasVisible = true;
                     break;
                 }
@@ -120,9 +119,8 @@ class Context extends AbstractRenderer
             $diff .= $separator;
 
             if ($hasVisible) {
-                foreach ($group as $code) {
-                    list($tag, $i1, $i2, $j1, $j2) = $code;
-                    if ($tag == 'delete') {
+                foreach ($group as list($tag, $i1, $i2, $j1, $j2)) {
+                    if ($tag === 'delete') {
                         continue;
                     }
                     $diff .= $this->tagMap[$tag] . ' ' . implode($eol . $this->tagMap[$tag] . ' ', $this->diff->GetB($j1, $j2)) . $eol;

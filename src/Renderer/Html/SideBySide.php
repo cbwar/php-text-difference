@@ -77,7 +77,7 @@ class SideBySide extends ArrayRenderer
 			foreach($blocks as $change) {
 				$html .= '<tbody class="Change'.ucfirst($change['tag']).'">';
 				// Equal changes should be shown on both sides of the diff
-				if($change['tag'] == 'equal') {
+				if($change['tag'] === 'equal') {
 
 				    if ($this->options['showEquals']) {
 
@@ -104,7 +104,7 @@ class SideBySide extends ArrayRenderer
                     }
 				}
 				// Added lines only on the right side
-				else if($change['tag'] == 'insert') {
+				else if($change['tag'] === 'insert') {
 					foreach($change['changed']['lines'] as $no => $line) {
 						$toLine = $change['changed']['offset'] + $no + 1;
 						$html .= '<tr>';
@@ -116,7 +116,7 @@ class SideBySide extends ArrayRenderer
 					}
 				}
 				// Show deleted lines only on the left side
-				else if($change['tag'] == 'delete') {
+				else if($change['tag'] === 'delete') {
 					foreach($change['base']['lines'] as $no => $line) {
 						$fromLine = $change['base']['offset'] + $no + 1;
 						$html .= '<tr>';
@@ -128,7 +128,7 @@ class SideBySide extends ArrayRenderer
 					}
 				}
 				// Show modified lines on both sides
-				else if($change['tag'] == 'replace') {
+				else if($change['tag'] === 'replace') {
 					if(count($change['base']['lines']) >= count($change['changed']['lines'])) {
 						foreach($change['base']['lines'] as $no => $line) {
 							$fromLine = $change['base']['offset'] + $no + 1;

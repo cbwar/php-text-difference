@@ -32,11 +32,11 @@ class RenderersTest extends TestCase
         $html = $this->diff->Render($renderer);
         $expectedHtml = file_get_contents(__DIR__ . '/fixtures/sidebyside.html');
 
-        $dom = new DOMDocument("1.0");
+        $dom = new DOMDocument('1.0');
         $dom->formatOutput = true;
         $dom->loadHTML($html);
 
-        $expected = new DOMDocument("1.0");
+        $expected = new DOMDocument('1.0');
         $expected->formatOutput = true;
         $expected->loadHTML($expectedHtml);
 
@@ -49,11 +49,11 @@ class RenderersTest extends TestCase
         $html = $this->diff->Render($renderer);
         $expectedHtml = file_get_contents(__DIR__ . '/fixtures/inline.html');
 
-        $dom = new DOMDocument("1.0");
+        $dom = new DOMDocument('1.0');
         $dom->formatOutput = true;
         $dom->loadHTML($html);
 
-        $expected = new DOMDocument("1.0");
+        $expected = new DOMDocument('1.0');
         $expected->formatOutput = true;
         $expected->loadHTML($expectedHtml);
 
