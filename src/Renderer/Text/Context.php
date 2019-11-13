@@ -46,6 +46,11 @@ use Diff\Renderer\AbstractRenderer;
 
 class Context extends AbstractRenderer
 {
+
+    protected $defaultOptions = [
+        'eol' => PHP_EOL,
+    ];
+
     /**
      * @var array Array of the different opcode tags and how they map to the context diff equivalent.
      */
@@ -65,6 +70,7 @@ class Context extends AbstractRenderer
     {
         $diff = '';
         $opCodes = $this->diff->getGroupedOpcodes();
+        $eol = $this->getOption('eol');
         foreach ($opCodes as $group) {
             $diff .= "***************\n";
             $lastItem = count($group) - 1;
@@ -74,15 +80,15 @@ class Context extends AbstractRenderer
             $j2 = $group[$lastItem][4];
 
             if ($i2 - $i1 >= 2) {
-                $diff .= '*** ' . ($group[0][1] + 1) . ',' . $i2 . " ****" . PHP_EOL;
+                $diff .= '*** ' . ($group[0][1] + 1) . ',' . $i2 . " ****" . $eol;
             } else {
                 $diff .= '*** ' . $i2 . " ****\n";
             }
 
             if ($j2 - $j1 >= 2) {
-                $separator = '--- ' . ($j1 + 1) . ',' . $j2 . " ----" . PHP_EOL;
+                $separator = '--- ' . ($j1 + 1) . ',' . $j2 . " ----" . $eol;
             } else {
-                $separator = '--- ' . $j2 . " ----" . PHP_EOL;
+                $separator = '--- ' . $j2 . " ----" . $eol;
             }
 
             $hasVisible = false;
@@ -99,7 +105,7 @@ class Context extends AbstractRenderer
                     if ($tag == 'insert') {
                         continue;
                     }
-                    $diff .= $this->tagMap[$tag] . ' ' . implode(PHP_EOL . $this->tagMap[$tag] . ' ', $this->diff->GetA($i1, $i2)) . PHP_EOL;
+                    $diff .= $this->tagMap[$tag] . ' ' . implode($eol . $this->tagMap[$tag] . ' ', $this->diff->GetA($i1, $i2)) . $eol;
                 }
             }
 
@@ -119,7 +125,7 @@ class Context extends AbstractRenderer
                     if ($tag == 'delete') {
                         continue;
                     }
-                    $diff .= $this->tagMap[$tag] . ' ' . implode(PHP_EOL . $this->tagMap[$tag] . ' ', $this->diff->GetB($j1, $j2)) . PHP_EOL;
+                    $diff .= $this->tagMap[$tag] . ' ' . implode($eol . $this->tagMap[$tag] . ' ', $this->diff->GetB($j1, $j2)) . $eol;
                 }
             }
         }

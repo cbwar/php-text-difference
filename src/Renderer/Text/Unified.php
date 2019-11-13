@@ -46,6 +46,11 @@ use Diff\Renderer\AbstractRenderer;
 
 class Unified extends AbstractRenderer
 {
+
+    protected $defaultOptions = [
+        'eol' => PHP_EOL,
+    ];
+
     /**
      * Render and return a unified diff.
      *
@@ -66,19 +71,19 @@ class Unified extends AbstractRenderer
                 $i1 = -1;
                 $i2 = -1;
             }
-
-            $diff .= '@@ -' . ($i1 + 1) . ',' . ($i2 - $i1) . ' +' . ($j1 + 1) . ',' . ($j2 - $j1) . ' @@' . PHP_EOL;
+            $eol =   $this->getOption('eol');
+            $diff .= '@@ -' . ($i1 + 1) . ',' . ($i2 - $i1) . ' +' . ($j1 + 1) . ',' . ($j2 - $j1) . ' @@' . $eol;
             foreach ($group as $code) {
                 list($tag, $i1, $i2, $j1, $j2) = $code;
                 if ($tag === 'equal') {
-                    $diff .= ' ' . implode(PHP_EOL . ' ', $this->diff->GetA($i1, $i2)) . PHP_EOL;
+                    $diff .= ' ' . implode($eol . ' ', $this->diff->GetA($i1, $i2)) . $eol;
                 } else {
                     if ($tag === 'replace' || $tag === 'delete') {
-                        $diff .= '-' . implode(PHP_EOL . '-', $this->diff->GetA($i1, $i2)) . PHP_EOL;
+                        $diff .= '-' . implode($eol . '-', $this->diff->GetA($i1, $i2)) . $eol;
                     }
 
                     if ($tag === 'replace' || $tag === 'insert') {
-                        $diff .= '+' . implode(PHP_EOL . '+', $this->diff->GetB($j1, $j2)) . PHP_EOL;
+                        $diff .= '+' . implode($eol . '+', $this->diff->GetB($j1, $j2)) . $eol;
                     }
                 }
             }

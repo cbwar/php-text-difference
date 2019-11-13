@@ -62,7 +62,9 @@ class RenderersTest extends TestCase
 
     public function testUnified()
     {
-        $renderer = new Unified();
+        $renderer = new Unified([
+            'eol' => "\n",
+        ]);
         $txt = $this->diff->render($renderer);
         $expectedTxt = file_get_contents(__DIR__ . '/fixtures/unified.txt');
         $this->assertEquals($expectedTxt, $txt);
@@ -70,7 +72,9 @@ class RenderersTest extends TestCase
 
     public function testContext()
     {
-        $renderer = new Context();
+        $renderer = new Context([
+            'eol' => "\n",
+        ]);
         $txt = $this->diff->render($renderer);
         $expectedTxt = file_get_contents(__DIR__ . '/fixtures/context.txt');
         $this->assertEquals($expectedTxt, $txt);
