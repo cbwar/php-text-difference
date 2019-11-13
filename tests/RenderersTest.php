@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Diff\Tests;
+namespace Cbwar\Diff\Tests;
 
 
-use Diff\Diff;
-use Diff\Renderer\Html\Inline;
-use Diff\Renderer\Html\SideBySide;
-use Diff\Renderer\Text\Context;
-use Diff\Renderer\Text\Unified;
+use Cbwar\Diff\Diff;
+use Cbwar\Diff\Renderer\Html\Inline;
+use Cbwar\Diff\Renderer\Html\SideBySide;
+use Cbwar\Diff\Renderer\Text\Context;
+use Cbwar\Diff\Renderer\Text\Unified;
 use DOMDocument;
 use PHPUnit\Framework\TestCase;
 

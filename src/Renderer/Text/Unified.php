@@ -40,9 +40,9 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
-namespace Diff\Renderer\Text;
+namespace Cbwar\Diff\Renderer\Text;
 
-use Diff\Renderer\AbstractRenderer;
+use Cbwar\Diff\Renderer\AbstractRenderer;
 
 class Unified extends AbstractRenderer
 {

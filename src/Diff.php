@@ -43,10 +43,10 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
-namespace Diff;
+namespace Cbwar\Diff;
 
-use Diff\Renderer\AbstractRenderer;
-use Diff\SequenceMatcher;
+use Cbwar\Diff\Renderer\AbstractRenderer;
+use Cbwar\Diff\SequenceMatcher;
 
 class Diff
 {

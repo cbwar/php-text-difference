@@ -15,12 +15,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "Diff\\": "src/"
+      "Cbwar\\Diff\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Diff\\Tests\\": "tests/"
+      "Cbwar\\Diff\\Tests\\": "tests/"
     }
   },
   "extra": {

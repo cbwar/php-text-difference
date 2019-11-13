@@ -18,12 +18,8 @@ so is primarily because of its high degree of accuracy.
 
 Via Composer
 
-``` json
-{
-    "require": {
-        "cbwar/php-text-difference": "dev-master"
-    }
-}
+```
+composer install cbwar/php-text-difference 
 ```
 
 ## Example Use

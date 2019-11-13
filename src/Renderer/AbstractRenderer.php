@@ -40,7 +40,7 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
-namespace Diff\Renderer;
+namespace Cbwar\Diff\Renderer;
 
 abstract class AbstractRenderer
 {

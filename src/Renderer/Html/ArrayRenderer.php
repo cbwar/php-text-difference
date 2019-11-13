@@ -40,9 +40,9 @@
  * @link http://github.com/chrisboulton/php-diff
  */
 
-namespace Diff\Renderer\Html;
+namespace Cbwar\Diff\Renderer\Html;
 
-use Diff\Renderer\AbstractRenderer;
+use Cbwar\Diff\Renderer\AbstractRenderer;
 
 class ArrayRenderer extends AbstractRenderer
 {
