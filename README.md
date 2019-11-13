@@ -19,7 +19,7 @@ so is primarily because of its high degree of accuracy.
 Via Composer
 
 ```
-composer install cbwar/php-text-difference 
+composer require cbwar/php-text-difference 
 ```
 
 ## Example Use
