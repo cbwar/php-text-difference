@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 
-if ( ! require_once __DIR__ . '/../vendor/autoload.php') {
+if ( !require __DIR__ . '/../vendor/autoload.php') {
     exit("You must set up the project dependencies, run the following commands:\n> wget http://getcomposer.org/composer.phar\n> php composer.phar install\n");
 }
 
@@ -36,14 +36,14 @@ use Diff\Renderer\Text\Unified;
         );
 
         // Initialize the diff class
-        $diff = new Diff($a, $b, $options);
+        $diff = new \Cbwar\Diff\Diff($a, $b, $options);
 
         ?>
         <h2>Side by Side Diff</h2>
         <?php
 
         // Generate a side by side diff
-        $renderer = new SideBySide;
+        $renderer = new \Cbwar\Diff\Renderer\Html\SideBySide();
         echo $diff->Render($renderer);
 
         ?>
@@ -51,7 +51,7 @@ use Diff\Renderer\Text\Unified;
         <?php
 
         // Generate an inline diff
-        $renderer = new Inline;
+        $renderer = new \Cbwar\Diff\Renderer\Html\Inline();
         echo $diff->render($renderer);
 
         ?>
@@ -59,7 +59,7 @@ use Diff\Renderer\Text\Unified;
 		<pre><?php
 
             // Generate a unified diff
-            $renderer = new Unified;
+            $renderer = new \Cbwar\Diff\Renderer\Text\Unified();
             echo htmlspecialchars($diff->render($renderer));
 
             ?>
@@ -68,7 +68,7 @@ use Diff\Renderer\Text\Unified;
 		<pre><?php
 
             // Generate a context diff
-            $renderer = new Context;
+            $renderer = new \Cbwar\Diff\Renderer\Text\Context();
             echo htmlspecialchars($diff->render($renderer));
             ?>
 		</pre>
