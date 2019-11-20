@@ -3,4 +3,6 @@
 /.idea
 /composer.lock
 /coverage
-/.phpunit*
+
+# PHPUnit
+/.phpunit.result.cache
